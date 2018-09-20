@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SwiftRoaring",
+        "repositoryURL": "https://github.com/piotte13/SwiftRoaring.git",
+        "state": {
+          "branch": null,
+          "revision": "d876bb828754caa5c79bb79dc23a58683d4717eb",
+          "version": "1.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
