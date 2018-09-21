@@ -9,12 +9,12 @@ bool runoptimize;
 bool copyonwrite;
 bool verbose;
 
+
 /**
  * Once you have collected all the integers, build the bitmaps.
  */
 static roaring_bitmap_t **create_all_bitmaps(size_t *howmany,
-        uint32_t **numbers, size_t count, bool runoptimize, bool copyonwrite, bool verbose, uint64_t * totalsize) {
-    *totalsize = 0;
+        uint32_t **numbers, size_t count, bool runoptimize, bool copyonwrite, bool verbose) {
     if (numbers == NULL) return NULL;
     size_t savedmem = 0;
     #ifdef RECORD_MALLOCS
@@ -28,8 +28,6 @@ static roaring_bitmap_t **create_all_bitmaps(size_t *howmany,
             answer[i] = roaring_bitmap_of_ptr(howmany[i], numbers[i]);
             answer[i]->copy_on_write = copyonwrite;
             if(runoptimize) roaring_bitmap_run_optimize(answer[i]);
-            savedmem += roaring_bitmap_shrink_to_fit(answer[i]);
-            *totalsize += roaring_bitmap_portable_size_in_bytes(answer[i]);
         }
     #ifdef RECORD_MALLOCS
         size_t aft = malloced_memory_usage;
@@ -41,15 +39,6 @@ static roaring_bitmap_t **create_all_bitmaps(size_t *howmany,
         return answer;
 }
 
-bool roaring_iterator_increment(uint32_t value, void *param) {
-    size_t count;
-    memcpy(&count, param, sizeof(uint64_t));
-    count++;
-    memcpy(param, &count, sizeof(uint64_t));
-    (void) value;
-    return true;  // continue till the end
-}
-
 void testInit(size_t *_howmany, uint32_t **_numbers, size_t _count, bool _runoptimize, bool _copyonwrite, bool _verbose)
 {
     howmany = _howmany;
@@ -58,7 +47,6 @@ void testInit(size_t *_howmany, uint32_t **_numbers, size_t _count, bool _runopt
     runoptimize = _runoptimize;
     copyonwrite = _copyonwrite;
     verbose = _verbose;
-
     
     for (size_t i = 0; i < count; i++) {
         if( howmany[i] > 0 ) {
@@ -84,11 +72,8 @@ void testDeinit(void){
 }
 
 uint64_t create(void){
-    uint64_t totalsize = 0;
-    bitmaps = create_all_bitmaps(howmany, numbers, count,runoptimize,copyonwrite, verbose, &totalsize);  
-    // if(verbose) printf("Loaded %d bitmaps from directory %s \n", (int)count, dirname);
-    // if(verbose) printf("Total size in bytes =  %" PRIu64 " \n", totalsize);
-    return totalsize;
+    bitmaps = create_all_bitmaps(howmany, numbers, count,runoptimize,copyonwrite, verbose);  
+    return count;
 }
 
 uint64_t successiveAnd(void){
@@ -113,7 +98,6 @@ uint64_t successiveOr(void){
         successive_or += roaring_bitmap_get_cardinality(tempor);
         roaring_bitmap_free(tempor);
     }
-
     return successive_or;
 }
 
@@ -180,7 +164,11 @@ uint64_t iterate(void){
     
     for (size_t i = 0; i < count; ++i) {
         roaring_bitmap_t *ra = bitmaps[i];
-        roaring_iterate(ra, roaring_iterator_increment, &total_count);
+        roaring_uint32_iterator_t *i = roaring_create_iterator(ra);
+        while(i->has_value) {
+            total_count += 1;
+            roaring_advance_uint32_iterator(i);
+        }
     }
 
     return total_count;

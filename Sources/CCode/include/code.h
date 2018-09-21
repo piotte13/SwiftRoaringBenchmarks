@@ -4,7 +4,7 @@
 #include "roaring.h"
 
 static roaring_bitmap_t **create_all_bitmaps(size_t *howmany,
-        uint32_t **numbers, size_t count, bool runoptimize, bool copyonwrite, bool verbose, uint64_t * totalsize);
+        uint32_t **numbers, size_t count, bool runoptimize, bool copyonwrite, bool verbose);
 
 bool roaring_iterator_increment(uint32_t value, void *param);
 
