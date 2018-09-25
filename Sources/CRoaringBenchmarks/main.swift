@@ -9,12 +9,12 @@ var functions: [(String, () -> UInt64)] = [
     ("unionMany", totalOr),
     ("unionManyHeap",totalOrHeap),
     ("contains", quartCount),
-    ("substracting", successiveAndNot),
+    ("subtracting", successiveAndNot),
     ("symmetricDifference", successiveXor),
     ("iterator", iterate),
     ("intersectionCount", successiveAndCard),
     ("unionCount", successiveOrCard),
-    ("substractingCount", successiveAndNotCard),
+    ("subtractingCount", successiveAndNotCard),
     ("symmetricDifferenceCount ", successiveXorCard)
     ]
 var folderName = "census-income"

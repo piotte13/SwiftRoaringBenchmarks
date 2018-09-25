@@ -99,7 +99,7 @@ var functions: [(String, () -> Int)] = [
     ("intersection", successiveAnd),
     ("union", successiveOr),
     ("contains", quartCount),
-    ("substracting", successiveAndNot),
+    ("subtracting", successiveAndNot),
     ("symmetricDifference", successiveXor),
     ("iterator", iterate)]                            
 

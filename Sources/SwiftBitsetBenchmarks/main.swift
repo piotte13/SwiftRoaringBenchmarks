@@ -152,12 +152,12 @@ var functions: [(String, () -> Int)] = [
     ("intersection", successiveAnd),
     ("union", successiveOr),
     ("contains", quartCount),
-    ("substracting", successiveAndNot),
+    ("subtracting", successiveAndNot),
     ("symmetricDifference", successiveXor),
     ("iterator", iterate),
     ("intersectionCount", successiveAndCard),
     ("unionCount", successiveOrCard),
-    ("substractingCount", successiveAndNotCard),
+    ("subtractingCount", successiveAndNotCard),
     ("symmetricDifferenceCount ", successiveXorCard)
     ]
 
