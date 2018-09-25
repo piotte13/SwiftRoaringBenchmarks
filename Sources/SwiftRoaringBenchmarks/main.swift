@@ -29,7 +29,7 @@ func successiveAnd() -> UInt64{
     
     for i in 0..<(bitmaps.count - 1) {
         let temp = bitmaps[i] & bitmaps[i + 1]
-        count += temp.count()
+        count += temp.count
     }
 
     return count;
@@ -40,23 +40,23 @@ func successiveOr() -> UInt64{
     
     for i in 0..<(bitmaps.count - 1) {
         let temp = bitmaps[i] | bitmaps[i + 1]
-        count += temp.count()
+        count += temp.count
     }
     return count;
 }
 
 func totalOr() -> UInt64{
     var count: UInt64 = 0;
-    let temp = bitmaps[0].orMany(Array(bitmaps.dropFirst()))
-    count += temp.count()
+    let temp = bitmaps[0].unionMany(Array(bitmaps.dropFirst()))
+    count += temp.count
     return count;
 }
 
 func totalOrHeap() -> UInt64{
     var count: UInt64 = 0;
     
-    let temp = bitmaps[0].orManyHeap(Array(bitmaps.dropFirst()))
-    count += temp.count()
+    let temp = bitmaps[0].unionManyHeap(Array(bitmaps.dropFirst()))
+    count += temp.count
 
     return count;
 }
@@ -65,9 +65,9 @@ func quartCount() -> UInt64{
     var count: UInt64 = 0;
     
     for i in 0..<(bitmaps.count) {
-        count += bitmaps[i].contains(value: (maxvalue/4)) ? 1 : 0
-        count += bitmaps[i].contains(value: (maxvalue/2)) ? 1 : 0
-        count += bitmaps[i].contains(value: (3*maxvalue/4)) ? 1 : 0
+        count += bitmaps[i].contains((maxvalue/4)) ? 1 : 0
+        count += bitmaps[i].contains((maxvalue/2)) ? 1 : 0
+        count += bitmaps[i].contains((3*maxvalue/4)) ? 1 : 0
     }
 
     return count;
@@ -78,7 +78,7 @@ func successiveAndNot() -> UInt64{
     
     for i in 0..<(bitmaps.count - 1) {
         let temp = bitmaps[i] - bitmaps[i + 1]
-        count += temp.count()
+        count += temp.count
     }
 
     return count;
@@ -89,7 +89,7 @@ func successiveXor() -> UInt64{
     
     for i in 0..<(bitmaps.count - 1) {
         let temp = bitmaps[i] ^ bitmaps[i + 1]
-        count += temp.count()
+        count += temp.count
     }
 
     return count;
@@ -112,7 +112,7 @@ func successiveAndCard() -> UInt64{
     var count: UInt64 = 0;
     
     for i in 0..<(bitmaps.count - 1) {
-        count += bitmaps[i].andCardinality(bitmaps[i + 1])
+        count += bitmaps[i].intersectionCount(bitmaps[i + 1])
     }
 
     return count;
@@ -122,7 +122,7 @@ func successiveOrCard() -> UInt64{
     var count: UInt64 = 0;
     
     for i in 0..<(bitmaps.count - 1) {
-        count += bitmaps[i].orCardinality(bitmaps[i + 1])
+        count += bitmaps[i].unionCount(bitmaps[i + 1])
     }
 
     return count;
@@ -132,7 +132,7 @@ func successiveAndNotCard() -> UInt64{
     var count: UInt64 = 0;
     
     for i in 0..<(bitmaps.count - 1) {
-        count += bitmaps[i].andNotCardinality(bitmaps[i + 1])
+        count += bitmaps[i].subtractingCount(bitmaps[i + 1])
     }
 
     return count;
@@ -142,7 +142,7 @@ func successiveXorCard() -> UInt64{
     var count: UInt64 = 0;
     
     for i in 0..<(bitmaps.count - 1) {
-        count += bitmaps[i].xorCardinality(bitmaps[i + 1])
+        count += bitmaps[i].symmetricDifferenceCount(bitmaps[i + 1])
     }
 
     return count;
@@ -155,18 +155,18 @@ func restart(){
 //test functions in c
 var functions: [(String, () -> UInt64)] = [
     ("create", create),
-    ("successiveAnd", successiveAnd),
-    ("successiveOr", successiveOr),
-    ("totalOr", totalOr),
-    ("totalOrHeap",totalOrHeap),
-    ("quartCount", quartCount),
-    ("successiveAndNot", successiveAndNot),
-    ("successiveXor", successiveXor),
-    ("iterate", iterate),
-    ("successiveAndCard", successiveAndCard),
-    ("successiveOrCard", successiveOrCard),
-    ("successiveAndNotCard", successiveAndNotCard),
-    ("successiveXorCard", successiveXorCard)
+    ("intersection", successiveAnd),
+    ("union", successiveOr),
+    ("unionMany", totalOr),
+    ("unionManyHeap",totalOrHeap),
+    ("contains", quartCount),
+    ("substracting", successiveAndNot),
+    ("symmetricDifference", successiveXor),
+    ("iterator", iterate),
+    ("intersectionCount", successiveAndCard),
+    ("unionCount", successiveOrCard),
+    ("substractingCount", successiveAndNotCard),
+    ("symmetricDifferenceCount ", successiveXorCard)
     ]
 
 let fileName = "SwiftRoaring"

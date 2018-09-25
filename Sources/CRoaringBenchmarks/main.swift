@@ -4,18 +4,18 @@ import Utils
 //test functions in c
 var functions: [(String, () -> UInt64)] = [
     ("create", create),
-    ("successiveAnd", successiveAnd),
-    ("successiveOr", successiveOr),
-    ("totalOr", totalOr),
-    ("totalOrHeap",totalOrHeap),
-    ("quartCount", quartCount),
-    ("successiveAndNot", successiveAndNot),
-    ("successiveXor", successiveXor),
-    ("iterate", iterate),
-    ("successiveAndCard", successiveAndCard),
-    ("successiveOrCard", successiveOrCard),
-    ("successiveAndNotCard", successiveAndNotCard),
-    ("successiveXorCard", successiveXorCard)
+    ("intersection", successiveAnd),
+    ("union", successiveOr),
+    ("unionMany", totalOr),
+    ("unionManyHeap",totalOrHeap),
+    ("contains", quartCount),
+    ("substracting", successiveAndNot),
+    ("symmetricDifference", successiveXor),
+    ("iterator", iterate),
+    ("intersectionCount", successiveAndCard),
+    ("unionCount", successiveOrCard),
+    ("substractingCount", successiveAndNotCard),
+    ("symmetricDifferenceCount ", successiveXorCard)
     ]
 var folderName = "census-income"
 var howMany: [size_t] = []

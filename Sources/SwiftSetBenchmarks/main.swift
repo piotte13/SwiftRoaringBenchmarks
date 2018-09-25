@@ -96,12 +96,12 @@ func restart(){
 
 var functions: [(String, () -> Int)] = [
     ("create", create),
-    ("successiveAnd", successiveAnd),
-    ("successiveOr", successiveOr),
-    ("quartCount", quartCount),
-    ("successiveAndNot", successiveAndNot),
-    ("successiveXor", successiveXor),
-    ("iterate", iterate)]                            
+    ("intersection", successiveAnd),
+    ("union", successiveOr),
+    ("contains", quartCount),
+    ("substracting", successiveAndNot),
+    ("symmetricDifference", successiveXor),
+    ("iterator", iterate)]                            
 
 let fileName = "Set"
 let data = Utils.executeFunctions(functions: functions, restartFunction: restart)

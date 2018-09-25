@@ -149,16 +149,16 @@ func restart(){
 //test functions in c
 var functions: [(String, () -> Int)] = [
     ("create", create),
-    ("successiveAnd", successiveAnd),
-    ("successiveOr", successiveOr),
-    ("quartCount", quartCount),
-    ("successiveAndNot", successiveAndNot),
-    ("successiveXor", successiveXor),
-    ("iterate", iterate),
-    ("successiveAndCard", successiveAndCard),
-    ("successiveOrCard", successiveOrCard),
-    ("successiveAndNotCard", successiveAndNotCard),
-    ("successiveXorCard", successiveXorCard)
+    ("intersection", successiveAnd),
+    ("union", successiveOr),
+    ("contains", quartCount),
+    ("substracting", successiveAndNot),
+    ("symmetricDifference", successiveXor),
+    ("iterator", iterate),
+    ("intersectionCount", successiveAndCard),
+    ("unionCount", successiveOrCard),
+    ("substractingCount", successiveAndNotCard),
+    ("symmetricDifferenceCount ", successiveXorCard)
     ]
 
 let fileName = "SwiftBitset"

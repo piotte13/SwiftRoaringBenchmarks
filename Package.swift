@@ -11,11 +11,12 @@ let package = Package(
         .executable(name: "CRoaringBenchmarks", targets: ["CRoaringBenchmarks"]),
         .executable(name: "SwiftRoaringBenchmarks", targets: ["SwiftRoaringBenchmarks"]),
         .executable(name: "SwiftSetBenchmarks", targets: ["SwiftSetBenchmarks"]),
+        .executable(name: "SwiftBitsetBenchmarks", targets: ["SwiftBitsetBenchmarks"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/piotte13/SwiftRoaring.git", from: "1.0.3"),
+        .package(url: "https://github.com/piotte13/SwiftRoaring.git", from: "1.0.4"),
         .package(url: "https://github.com/lemire/SwiftBitset.git", from: "0.3.3")
     ],
     targets: [
