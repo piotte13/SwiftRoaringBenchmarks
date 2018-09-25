@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "SwiftBitset",
+        "repositoryURL": "https://github.com/lemire/SwiftBitset.git",
+        "state": {
+          "branch": null,
+          "revision": "027198c749fdf6cfde46eb6884aced40ffbc0309",
+          "version": "0.3.3"
+        }
+      },
+      {
         "package": "SwiftRoaring",
         "repositoryURL": "https://github.com/piotte13/SwiftRoaring.git",
         "state": {

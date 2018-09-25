@@ -2,12 +2,24 @@ import ccode
 import Utils
 
 //test functions in c
-var functions: [() -> UInt64] = [create, successiveAnd, successiveOr, totalOr, totalOrHeap, quartCount, successiveAndNot,
-                                successiveXor, iterate, successiveAndCard, successiveOrCard, 
-                                successiveAndNotCard, successiveXorCard]
-
+var functions: [(String, () -> UInt64)] = [
+    ("create", create),
+    ("successiveAnd", successiveAnd),
+    ("successiveOr", successiveOr),
+    ("totalOr", totalOr),
+    ("totalOrHeap",totalOrHeap),
+    ("quartCount", quartCount),
+    ("successiveAndNot", successiveAndNot),
+    ("successiveXor", successiveXor),
+    ("iterate", iterate),
+    ("successiveAndCard", successiveAndCard),
+    ("successiveOrCard", successiveOrCard),
+    ("successiveAndNotCard", successiveAndNotCard),
+    ("successiveXorCard", successiveXorCard)
+    ]
+var folderName = "census-income"
 var howMany: [size_t] = []
-var numbers: [[UInt32]] = Utils.loadFolderIntoArrays(folderName: "census-income")
+var numbers: [[UInt32]] = Utils.loadFolderIntoArrays(folderName: folderName)
 for i in numbers{
     howMany.append(i.count)
 }
@@ -28,6 +40,9 @@ for i in 0..<howMany.count{
 //Execute c tests
 testInit(dataHowmany, data, numbers.count, true, false, false)
 
-Utils.executeFunctions(functions: functions)
+let fileName = "CRoaring"
+let dataResults = Utils.executeFunctions(functions: functions, restartFunction: restart)
 
-testDeinit()
+Utils.writeToFile(data: dataResults, folderName: folderName, fileName: fileName)
+
+//testDeinit()

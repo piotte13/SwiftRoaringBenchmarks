@@ -1,6 +1,7 @@
 import Utils
 
-var numbers: [[UInt32]] = Utils.loadFolderIntoArrays(folderName: "census-income")
+var folderName = "census-income"
+var numbers: [[UInt32]] = Utils.loadFolderIntoArrays(folderName: folderName)
 
 var swiftSets: [Set<UInt32>] = []
 var maxvalue: UInt32 = 0
@@ -89,8 +90,20 @@ func iterate() -> Int{
     return count;
 }
 
+func restart(){
+    swiftSets = []
+}
 
-var functions: [() -> Int] = [create, successiveAnd, successiveOr, quartCount, successiveAndNot,
-                                successiveXor, iterate]
+var functions: [(String, () -> Int)] = [
+    ("create", create),
+    ("successiveAnd", successiveAnd),
+    ("successiveOr", successiveOr),
+    ("quartCount", quartCount),
+    ("successiveAndNot", successiveAndNot),
+    ("successiveXor", successiveXor),
+    ("iterate", iterate)]                            
 
-Utils.executeFunctions(functions: functions)
+let fileName = "Set"
+let data = Utils.executeFunctions(functions: functions, restartFunction: restart)
+
+Utils.writeToFile(data: data, folderName: folderName, fileName: fileName)

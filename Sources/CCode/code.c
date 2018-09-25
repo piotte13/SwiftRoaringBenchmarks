@@ -211,3 +211,12 @@ uint64_t successiveXorCard(void){
 
     return successive_xorcard;
 }
+
+void restart(){
+    for (int i = 0; i < (int)count; ++i) {
+        roaring_bitmap_free(bitmaps[i]);
+        bitmaps[i] = NULL;  // paranoid
+    }
+    free(bitmaps);
+    bitmaps = NULL;
+}

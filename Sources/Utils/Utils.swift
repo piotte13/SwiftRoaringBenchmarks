@@ -36,18 +36,60 @@ public class Utils{
         return numbers
     }
 
-    public static func executeFunctions<T>(functions: [() -> T]){
-        var times: [UInt64] = []
-        var values: [T] = []
+    public static func executeFunctions<T>(functions: [(String, () -> T)], restartFunction: () -> Void) -> String{
+        var times: [[UInt64]] = []
+        var values: [[T]] = []
+        var data: String = ""
 
-        for f in functions {
-            times.append(nanotime(block: { () in values.append(f())}))
+        for (i, (name, _)) in functions.enumerated() {
+            if(i < (functions.count - 1) ){
+                data.append("\(name),")
+            }
+            else {
+                data.append("\(name)\n")
+            }
         }
 
-        //Print results
-        for t in times {
-            print(t)
+        for _ in 0..<100 {
+            var iterationTimes: [UInt64] = []
+            var iterationValues: [T] = []
+            for (_, f) in functions {
+                let time = nanotime(block: { () in iterationValues.append(f())})
+                iterationTimes.append(time)
+            }
+            times.append(iterationTimes)
+            values.append(iterationValues)
+            restartFunction()
         }
+        for iteration in times {
+            for (i, time) in iteration.enumerated(){
+                if(i < (iteration.count - 1) ){
+                    data.append("\(time),")
+                }
+                else {
+                    data.append("\(time)\n")
+                }
+            }
+        }
+        return data
+    }
+
+    public static func writeToFile(data: String, folderName: String, fileName: String){
+        let fd = FileManager.default
+        let currentPath = fd.currentDirectoryPath
+        let url = URL(fileURLWithPath: "\(currentPath)/Results/\(folderName)/\(fileName).csv")
+        do{
+        try fd.createDirectory(atPath: "\(currentPath)/Results/\(folderName)",withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+        print(url.absoluteURL)
+        //writing
+        do {
+            try data.write(to: url, atomically: true, encoding: .utf8)
+        }
+        catch {/* error handling here */}
+
     }
 }
 

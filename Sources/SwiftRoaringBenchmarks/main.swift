@@ -1,8 +1,8 @@
 import SwiftRoaring
 import Utils
 
-var numbers: [[UInt32]] = Utils.loadFolderIntoArrays(folderName: "census-income")
-
+var folderName = "census-income"
+var numbers: [[UInt32]] = Utils.loadFolderIntoArrays(folderName: folderName)
 var bitmaps: [RoaringBitmap] = []
 var maxvalue: UInt32 = 0
 
@@ -148,9 +148,28 @@ func successiveXorCard() -> UInt64{
     return count;
 }
 
-//test functions in c
-var functions: [() -> UInt64] = [create, successiveAnd, successiveOr, totalOr, totalOrHeap, quartCount, successiveAndNot,
-                                successiveXor, iterate, successiveAndCard, successiveOrCard, 
-                                successiveAndNotCard, successiveXorCard]
+func restart(){
+    bitmaps = []
+}
 
-Utils.executeFunctions(functions: functions)
+//test functions in c
+var functions: [(String, () -> UInt64)] = [
+    ("create", create),
+    ("successiveAnd", successiveAnd),
+    ("successiveOr", successiveOr),
+    ("totalOr", totalOr),
+    ("totalOrHeap",totalOrHeap),
+    ("quartCount", quartCount),
+    ("successiveAndNot", successiveAndNot),
+    ("successiveXor", successiveXor),
+    ("iterate", iterate),
+    ("successiveAndCard", successiveAndCard),
+    ("successiveOrCard", successiveOrCard),
+    ("successiveAndNotCard", successiveAndNotCard),
+    ("successiveXorCard", successiveXorCard)
+    ]
+
+let fileName = "SwiftRoaring"
+let data = Utils.executeFunctions(functions: functions, restartFunction: restart)
+
+Utils.writeToFile(data: data, folderName: folderName, fileName: fileName)

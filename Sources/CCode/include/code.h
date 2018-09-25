@@ -38,4 +38,6 @@ uint64_t successiveAndNotCard(void);
 
 uint64_t successiveXorCard(void);
 
+void restart();
+
 #endif
