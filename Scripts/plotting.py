@@ -58,7 +58,12 @@ def buildTable(dataAverages, files, outputDir):
         for j in range(len(values[0])):
             if(isinstance(values[i + 1][j], numbers.Number) and  isinstance(values[qtyOfTech][j], numbers.Number)):
                 values[qtyOfTech + i + 1][j] = "{:.4f}".format(float(values[i + 1][j]) / values[qtyOfTech][j])
-            
+    #format with comas
+    for idx, tech in enumerate(dataAverages):
+        for test in tech:
+            i = tests.index(test)
+            values[idx+1][i] = "{:,}".format(values[idx+1][i])
+
     headerColor = 'grey'
     rowEvenColor = 'lightgrey'
     rowOddColor = 'white'
