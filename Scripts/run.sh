@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")" || exit
 echo "Building..."
-cd ../
+cd ..
 swift build  -Xcc -march=native  --configuration release
 
 echo "Running SwiftRoaringBenchmarks..."
@@ -20,4 +20,4 @@ cd "$(dirname "$0")" || exit
 chmod +x ./plotting.py
 pip install py-cpuinfo
 pip install plotly
-python plotting.py
+python ./plotting.py
