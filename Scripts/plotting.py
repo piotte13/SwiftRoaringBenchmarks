@@ -98,15 +98,13 @@ def buildBarChart(dataAverages, files, outputDir):
                 name=os.path.splitext(files[idx])[0]
             ))
     layout = go.Layout(
-        barmode='group'
+        barmode='group',
+        title="Speed comparison in nanoseconds of the different bitmap features. (smaller = better)",
+        yaxis={'title': 'Execution time (nanoseconds)'},
+        type="log"
         )
     filename = os.path.join(outputDir , "bar-chart.html")
-    fig = go.Figure(data=traces, layout=layout, y="Execution time (nanoseconds)")
-    fig.update_yaxes(type="log")
-    fig.update_layout(
-        title="Speed comparison in nanoseconds of the different bitmap features. (smaller = better)",
-        yaxis_title="Execution time (nanoseconds)"
-    )
+    fig = go.Figure(data=traces, layout=layout)
     plotly.offline.plot(fig, filename=filename)
 
 def buildGraphs(files, datasetName, root):
