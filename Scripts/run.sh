@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 echo "Building..."
 cd ../
 swift build  -Xcc -march=native  --configuration release
@@ -16,7 +16,7 @@ echo "Running SwiftSetBenchmarks..."
 echo "Running SwiftBitsetBenchmarks..."
 ./.build/x86_64-unknown-linux/release/SwiftBitsetBenchmarks
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit
 chmod +x ./plotting.py
 pip install py-cpuinfo
 pip install plotly

@@ -13,7 +13,6 @@ dirname = os.path.dirname(__file__)
 resultsDir = os.path.join(dirname, '../Results')
 graphsDir = os.path.join(dirname, '../Graphs')
 
-
 def calculateAverages(data):
     averagesList = []
     for technology in data:
@@ -102,7 +101,8 @@ def buildBarChart(dataAverages, files, outputDir):
         barmode='group'
         )
     filename = os.path.join(outputDir , "bar-chart.html")
-    fig = go.Figure(data=traces, layout=layout)
+    fig = go.Figure(data=traces, layout=layout, y="Execution time (nanoseconds)")
+    fig.update_yaxes(type="log")
     plotly.offline.plot(fig, filename=filename)
 
 def buildGraphs(files, datasetName, root):
