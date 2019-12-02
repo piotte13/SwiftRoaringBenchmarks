@@ -100,8 +100,7 @@ def buildBarChart(dataAverages, files, outputDir):
     layout = go.Layout(
         barmode='group',
         title="Speed comparison in nanoseconds of the different bitmap features. (smaller = better)",
-        yaxis={'title': 'Execution time (nanoseconds)'},
-        type="log"
+        yaxis={'title': 'Execution time (nanoseconds)', 'type':"log"},
         )
     filename = os.path.join(outputDir , "bar-chart.html")
     fig = go.Figure(data=traces, layout=layout)
